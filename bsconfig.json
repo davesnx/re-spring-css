@@ -1,0 +1,25 @@
+{
+  "name": "reason-react-example",
+  "bsc-flags": ["-bs-no-version-header", "-bs-super-errors"],
+  "reason": {
+    "react-jsx" : 2
+  },
+  "namespace": true,
+  "bs-dependencies": [
+    "reason-react",
+    "bs-css"
+  ],
+  "sources": {
+    "dir": "src",
+    "subdirs": true
+  },
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "warnings": {
+    "error": "+101"
+  },
+  "suffix": ".bs.js",
+  "refmt": 3
+}

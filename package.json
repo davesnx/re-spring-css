@@ -1,0 +1,24 @@
+{
+  "name": "re-spring-css",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "npx parcel index.html",
+    "clean": "bsb -clean-world",
+    "test": "exit 0"
+  },
+  "keywords": ["animation", "keyframe", "css", "reason", "spring"],
+  "author": "davesnx",
+  "license": "MIT",
+  "dependencies": {
+    "bs-css": "^8.0.4",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "reason-react": "^0.5.0"
+  },
+  "devDependencies": {
+    "bs-platform": "^5.0.4",
+    "parcel": "^1.12.3"
+  }
+}

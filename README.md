@@ -1,8 +1,12 @@
 # re-spring-css
 
-re-spring-css makes it easy to create CSS-keyframes spring animations in Reason.
+re-spring-css makes it easy to create keyframes animations in Reason.
 
-You define a spring, like [chenglou/react-motion](https://github.com/chenglou/react-motion) or [react-spring.io](https://www.react-spring.io) but it's just CSS, so it runs at 60 FPS. Can't be canceled or dynamically treated.
+You define a spring: giving a tension and a friction (like [chenglou/react-motion](https://github.com/chenglou/react-motion) or [react-spring.io](https://www.react-spring.io)) and it would create the keyframe!
+
+- It runs at 60 FPS.
+- Doesn't block the DOM, like JavaScript-based animation libs.
+- Can't be canceled or dynamically treated.
 
 It's an implementation in ReasonML of [gerardabello/spring-animation-keyframes](https://github.com/gerardabello/spring-animation-keyframes), all credits to [him: @gerardabello](https://github.com/gerardabello).
 

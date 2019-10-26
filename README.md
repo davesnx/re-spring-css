@@ -8,31 +8,32 @@ It's an implementation in ReasonML of [gerardabello/spring-animation-keyframes](
 
 ## How it works
 
+This module depends on [bs-css](https://github.com/SentiaAnalytics/bs-css), ensure that you install both!
+
 ```reason
 module Styles = {
   open Css;
+  open ReSpring;
 
-  let crazyAnimation =
-    keyframes(
-      /*
-      You would be able to merge 2 keyframe animations, I'm waiting for a possible bug in bs-css.
-      https://github.com/SentiaAnalytics/bs-css/issues/140
-
-      createPropertyKeyFrame(
-           ~tension=180.,
-           ~friction=20.,
-           ~initialValue=0.,
-           ~finalValue=1.,
-           ~property=opacity,
-         ), */
-      createTransformKeyFrame(
-        ~tension=200.,
-        ~friction=45.,
-        ~initialValue=0.,
-        ~finalValue=100.,
-        ~transform=translateY,
-      )
+  let fade =
+    createPropertyKeyFrame(
+      ~tension=120.,
+      ~friction=40.,
+      ~initialValue=0.,
+      ~finalValue=1.,
+      ~property=Css.opacity,
     );
+
+  let jump =
+    createTransformKeyFrame(
+      ~tension=120.,
+      ~friction=40.,
+      ~initialValue=0.,
+      ~finalValue=100.,
+      ~transform=Css.translateX,
+    );
+
+  let crazyAnimation = Css.keyframes(merge(jump, fade));
 
   let root =
     style([
@@ -56,8 +57,6 @@ CSS animations runs at 60FPS (or more) even if the main thread is busy with pars
 <!-- todo: add (link to screens with freq 120/144/etc[] -->
 
 ## Contribute (Help!)
-
-It's my first ReasonML module, so I would need a lot of help to bring that into a proper shape.
 I have a list of issues to improve it [here](https://github.com/davesnx/re-spring-css/issues)
 
 ```bash

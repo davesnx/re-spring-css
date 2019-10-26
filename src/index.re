@@ -1,24 +1,22 @@
-open Animation;
+let timings = 101;
 
 let calculateSpring =
     (~initialValue, ~finalValue, ~tension, ~friction, ~startVel, ~t) => {
   let fn =
-    spring(
+    Animation.spring(
       ~tension,
       ~friction,
       ~endPos=finalValue -. initialValue,
       ~startVel,
     );
+
   initialValue +. fn(t);
 };
 
 let createPropertyKeyFrame =
-    (~tension, ~friction, ~initialValue, ~finalValue, ~property) => {
-  /* [0,1,2,3,... 100] */
-  let timings = Belt.List.makeBy(101, i => i);
-
-  List.map(
-    i => (
+    (~tension, ~friction, ~initialValue, ~finalValue, ~property) =>
+  Belt.List.makeBy(timings, i =>
+    (
       i,
       [
         property(
@@ -32,17 +30,13 @@ let createPropertyKeyFrame =
           ),
         ),
       ],
-    ),
-    timings,
+    )
   );
-};
 
 let createTransformKeyFrame =
-    (~tension, ~friction, ~initialValue, ~finalValue, ~transform) => {
-  let timings = Belt.List.makeBy(101, i => i);
-
-  List.map(
-    i => (
+    (~tension, ~friction, ~initialValue, ~finalValue, ~transform) =>
+  Belt.List.makeBy(timings, i =>
+    (
       i,
       [
         Css.transform(
@@ -59,44 +53,63 @@ let createTransformKeyFrame =
           ),
         ),
       ],
-    ),
-    timings,
+    )
   );
-};
+
+let merge = (keyframeA, keyframeB) =>
+  List.map2(
+    (a, b) => {
+      let (keyframeATime, keyframeADef) = a;
+      let (_keyframeBTime, keyframeBDef) = b;
+
+      (keyframeATime, List.append(keyframeADef, keyframeBDef));
+    },
+    keyframeA,
+    keyframeB,
+  );
 
 module Styles = {
-  open Css;
-
-  let dobleTirabuzon =
-    keyframes(
-      /* createPropertyKeyFrame(
-           ~tension=180.,
-           ~friction=20.,
-           ~initialValue=0.,
-           ~finalValue=1.,
-           ~property=opacity,
-         ), */
-      createTransformKeyFrame(
-        ~tension=200.,
-        ~friction=45.,
-        ~initialValue=0.,
-        ~finalValue=100.,
-        ~transform=translateY,
-      ),
+  let fade =
+    createPropertyKeyFrame(
+      ~tension=120.,
+      ~friction=40.,
+      ~initialValue=0.,
+      ~finalValue=1.,
+      ~property=Css.opacity,
     );
 
+  let jump =
+    createTransformKeyFrame(
+      ~tension=120.,
+      ~friction=40.,
+      ~initialValue=0.,
+      ~finalValue=100.,
+      ~transform=Css.translateX,
+    );
+
+  let dobleTirabuzon = Css.keyframes(merge(jump, fade));
+  let fadeAnimation = Css.keyframes(fade);
+
   let root =
-    style([
-      width(px(50)),
-      height(px(50)),
-      backgroundColor(rgb(0, 0, 0)),
-      animationName(dobleTirabuzon),
-      animationDuration(2000),
-      unsafe("animation-iteration-count", "infinite"),
-    ]);
+    Css.(
+      style([
+        display(`flex),
+        justifyContent(`center),
+        alignItems(`center),
+        color(rgb(255, 255, 255)),
+        width(px(150)),
+        height(px(150)),
+        backgroundColor(rgb(123, 123, 0)),
+        animationName(dobleTirabuzon),
+        animationDuration(1000),
+        unsafe("animation-iteration-count", "infinite"),
+      ])
+    );
 };
 
 ReactDOMRe.renderToElementWithId(
-  <div className=Styles.root> {ReasonReact.string("Hello!")} </div>,
+  <div>
+    <div className=Styles.root> {ReasonReact.string("Hello")} </div>
+  </div>,
   "index",
 );

@@ -8,7 +8,13 @@
     "clean": "bsb -clean-world",
     "test": "exit 0"
   },
-  "keywords": ["animation", "keyframe", "css", "reason", "spring"],
+  "keywords": [
+    "animation",
+    "keyframe",
+    "css",
+    "reason",
+    "spring"
+  ],
   "author": "davesnx",
   "license": "MIT",
   "dependencies": {

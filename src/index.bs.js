@@ -17,10 +17,7 @@ function calculateSpring(initialValue, finalValue, tension, friction, startVel, 
 }
 
 function createPropertyKeyFrame(tension, friction, initialValue, finalValue, property) {
-  var timings = Belt_List.makeBy(101, (function (i) {
-          return i;
-        }));
-  return List.map((function (i) {
+  return Belt_List.makeBy(101, (function (i) {
                 return /* tuple */[
                         i,
                         /* :: */[
@@ -28,14 +25,11 @@ function createPropertyKeyFrame(tension, friction, initialValue, finalValue, pro
                           /* [] */0
                         ]
                       ];
-              }), timings);
+              }));
 }
 
 function createTransformKeyFrame(tension, friction, initialValue, finalValue, transform) {
-  var timings = Belt_List.makeBy(101, (function (i) {
-          return i;
-        }));
-  return List.map((function (i) {
+  return Belt_List.makeBy(101, (function (i) {
                 return /* tuple */[
                         i,
                         /* :: */[
@@ -43,24 +37,51 @@ function createTransformKeyFrame(tension, friction, initialValue, finalValue, tr
                           /* [] */0
                         ]
                       ];
-              }), timings);
+              }));
 }
 
-var dobleTirabuzon = Css.keyframes(createTransformKeyFrame(200, 45, 0, 100, Css.translateY));
+function merge(keyframeA, keyframeB) {
+  return List.map2((function (a, b) {
+                return /* tuple */[
+                        a[0],
+                        List.append(a[1], b[1])
+                      ];
+              }), keyframeA, keyframeB);
+}
+
+var fade = createPropertyKeyFrame(120, 40, 0, 1, Css.opacity);
+
+var jump = createTransformKeyFrame(120, 40, 0, 100, Css.translateX);
+
+var dobleTirabuzon = Css.keyframes(merge(jump, fade));
+
+var fadeAnimation = Css.keyframes(fade);
 
 var root = Css.style(/* :: */[
-      Css.width(Css.px(50)),
+      Css.display(/* flex */-1010954439),
       /* :: */[
-        Css.height(Css.px(50)),
+        Css.justifyContent(/* center */98248149),
         /* :: */[
-          Css.backgroundColor(Css.rgb(0, 0, 0)),
+          Css.alignItems(/* center */98248149),
           /* :: */[
-            Css.animationName(dobleTirabuzon),
+            Css.color(Css.rgb(255, 255, 255)),
             /* :: */[
-              Css.animationDuration(2000),
+              Css.width(Css.px(150)),
               /* :: */[
-                Css.unsafe("animation-iteration-count", "infinite"),
-                /* [] */0
+                Css.height(Css.px(150)),
+                /* :: */[
+                  Css.backgroundColor(Css.rgb(123, 123, 0)),
+                  /* :: */[
+                    Css.animationName(dobleTirabuzon),
+                    /* :: */[
+                      Css.animationDuration(1000),
+                      /* :: */[
+                        Css.unsafe("animation-iteration-count", "infinite"),
+                        /* [] */0
+                      ]
+                    ]
+                  ]
+                ]
               ]
             ]
           ]
@@ -69,16 +90,23 @@ var root = Css.style(/* :: */[
     ]);
 
 var Styles = /* module */[
+  /* fade */fade,
+  /* jump */jump,
   /* dobleTirabuzon */dobleTirabuzon,
+  /* fadeAnimation */fadeAnimation,
   /* root */root
 ];
 
-ReactDOMRe.renderToElementWithId(React.createElement("div", {
-          className: root
-        }, "Hello!"), "index");
+ReactDOMRe.renderToElementWithId(React.createElement("div", undefined, React.createElement("div", {
+              className: root
+            }, "Hello")), "index");
 
+var timings = 101;
+
+exports.timings = timings;
 exports.calculateSpring = calculateSpring;
 exports.createPropertyKeyFrame = createPropertyKeyFrame;
 exports.createTransformKeyFrame = createTransformKeyFrame;
+exports.merge = merge;
 exports.Styles = Styles;
-/* dobleTirabuzon Not a pure module */
+/* fade Not a pure module */

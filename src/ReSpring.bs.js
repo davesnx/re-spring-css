@@ -14,7 +14,9 @@ function calculateSpring(initialValue, finalValue, tension, friction, startVel, 
   return initialValue + Curry._1(fn, t);
 }
 
-function createPropertyKeyFrame(tension, friction, initialValue, finalValue, property) {
+function createPropertyKeyFrame($staropt$star, $staropt$star$1, initialValue, finalValue, property) {
+  var tension = $staropt$star !== undefined ? $staropt$star : 120;
+  var friction = $staropt$star$1 !== undefined ? $staropt$star$1 : 17;
   return Belt_List.makeBy(101, (function (i) {
                 return /* tuple */[
                         i,
@@ -26,7 +28,9 @@ function createPropertyKeyFrame(tension, friction, initialValue, finalValue, pro
               }));
 }
 
-function createTransformKeyFrame(tension, friction, initialValue, finalValue, transform) {
+function createTransformKeyFrame($staropt$star, $staropt$star$1, initialValue, finalValue, transform) {
+  var tension = $staropt$star !== undefined ? $staropt$star : 120;
+  var friction = $staropt$star$1 !== undefined ? $staropt$star$1 : 17;
   return Belt_List.makeBy(101, (function (i) {
                 return /* tuple */[
                         i,

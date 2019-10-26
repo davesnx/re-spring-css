@@ -14,7 +14,7 @@ let calculateSpring =
 };
 
 let createPropertyKeyFrame =
-    (~tension, ~friction, ~initialValue, ~finalValue, ~property) =>
+    (~tension=120., ~friction=17., ~initialValue, ~finalValue, ~property) =>
   Belt.List.makeBy(timings, i =>
     (
       i,
@@ -34,7 +34,7 @@ let createPropertyKeyFrame =
   );
 
 let createTransformKeyFrame =
-    (~tension, ~friction, ~initialValue, ~finalValue, ~transform) =>
+    (~tension=120., ~friction=17., ~initialValue, ~finalValue, ~transform) =>
   Belt.List.makeBy(timings, i =>
     (
       i,

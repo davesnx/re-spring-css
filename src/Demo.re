@@ -2,7 +2,7 @@ module Styles = {
   let fade =
     ReSpring.createPropertyKeyFrame(
       ~tension=120.,
-      ~friction=40.,
+      ~friction=17.,
       ~initialValue=0.,
       ~finalValue=1.,
       ~property=Css.opacity,
@@ -11,7 +11,7 @@ module Styles = {
   let jump =
     ReSpring.createTransformKeyFrame(
       ~tension=120.,
-      ~friction=40.,
+      ~friction=17.,
       ~initialValue=0.,
       ~finalValue=100.,
       ~transform=Css.translateX,

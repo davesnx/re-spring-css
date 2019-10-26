@@ -1,7 +1,7 @@
 {
   "name": "re-spring-css",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "CSS-keyframes animations in Reason",
   "scripts": {
     "build": "bsb -make-world",
     "start": "npx parcel index.html",
